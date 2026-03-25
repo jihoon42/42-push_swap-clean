@@ -77,7 +77,7 @@ static void	state_rotate(int *stack, int size, int reverse)
 
 void	apply_small_op(t_small_state *dst, t_small_state *src, int op)
 {
-	*dst = *src;
+	copy_small_state(dst, src);
 	if (op == 0 || op == 2)
 		state_swap(dst->a, dst->a_size);
 	if (op == 1 || op == 2)

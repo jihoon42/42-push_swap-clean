@@ -57,7 +57,7 @@ static void	add_small_state(t_small_solver *solver, t_small_state *next,
 	idx = find_small_state(solver->states, *tail, next);
 	if (idx < 0)
 	{
-		solver->states[*tail] = *next;
+		copy_small_state(&solver->states[*tail], next);
 		(*tail)++;
 	}
 }

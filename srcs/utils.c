@@ -26,6 +26,23 @@ int	is_sorted(t_deque *a)
 	return (1);
 }
 
+void	copy_small_state(t_small_state *dst, const t_small_state *src)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		dst->a[i] = src->a[i];
+		dst->b[i] = src->b[i];
+		i++;
+	}
+	dst->a_size = src->a_size;
+	dst->b_size = src->b_size;
+	dst->prev = src->prev;
+	dst->op = src->op;
+}
+
 void	free_deque(t_deque *q)
 {
 	t_node	*curr;

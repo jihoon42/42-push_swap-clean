@@ -105,6 +105,7 @@ void	last_sort(t_deque *a);
 
 /* utils.c */
 int		is_sorted(t_deque *a);
+void	copy_small_state(t_small_state *dst, const t_small_state *src);
 void	free_deque(t_deque *q);
 
 #endif
