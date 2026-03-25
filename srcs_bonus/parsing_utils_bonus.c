@@ -1,0 +1,90 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jkim2 <jkim2@student.42gyeongsan.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/22 09:26:45 by jkim2             #+#    #+#             */
+/*   Updated: 2026/03/25 21:42:14 by jkim2            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "checker_bonus.h"
+
+static unsigned long	get_limit(long sign)
+{
+	if (sign < 0)
+		return ((unsigned long)LONG_MAX + 1UL);
+	return (LONG_MAX);
+}
+
+static long	finish_atol(unsigned long nbr, long sign)
+{
+	if (sign < 0)
+	{
+		if (nbr == (unsigned long)LONG_MAX + 1UL)
+			return (LONG_MIN);
+		return (-(long)nbr);
+	}
+	return ((long)nbr);
+}
+
+int	is_valid_number(const char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	if (!s[i])
+		return (0);
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+long	ft_atol(const char *s)
+{
+	long			sign;
+	unsigned long	nbr;
+	unsigned long	limit;
+
+	nbr = 0;
+	sign = 1;
+	while (*s == ' ' || (*s >= 9 && *s <= 13))
+		s++;
+	if (*s == '-' || *s == '+')
+	{
+		if (*s == '-')
+			sign = -1;
+		s++;
+	}
+	limit = get_limit(sign);
+	while (*s >= '0' && *s <= '9')
+	{
+		if (nbr > (limit - (unsigned long)(*s - '0')) / 10)
+			return (finish_atol(limit, sign));
+		nbr = nbr * 10 + (unsigned long)(*s - '0');
+		s++;
+	}
+	return (finish_atol(nbr, sign));
+}
+
+int	has_duplicate(t_deque *a, int value)
+{
+	t_node	*curr;
+
+	curr = a->front;
+	while (curr)
+	{
+		if (curr->data == value)
+			return (1);
+		curr = curr->next;
+	}
+	return (0);
+}
