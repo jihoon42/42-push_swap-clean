@@ -133,7 +133,7 @@ checked against `INT_MIN`..`INT_MAX`, and tested for duplicates against the
 already-parsed portion of the deque. Any failure immediately triggers
 `Error\n` on stderr.
 
-The `ft_atoi` function used for conversion accumulates into an `unsigned long`
+The `ft_atol` function used for conversion accumulates into an `unsigned long`
 and guards against overflow *before* each `nbr = nbr * 10 + digit` step,
 comparing against a precomputed limit derived from `LONG_MAX` (or
 `LONG_MAX + 1` for negative numbers). If the input exceeds the representable
@@ -382,7 +382,7 @@ push_swap/
 ├── srcs/
 │   ├── main.c                 # Entry point, dispatch by input size
 │   ├── parsing.c              # argv tokenization and validation
-│   ├── parsing_utils.c        # ft_atoi (overflow-safe), is_valid_number, has_duplicate
+│   ├── parsing_utils.c        # ft_atol (overflow-safe), is_valid_number, has_duplicate
 │   ├── indexing.c             # Coordinate compression (sort array + binary search)
 │   ├── deque.c                # Deque primitives (push_front/back, pop_front/back, new_node)
 │   ├── operations.c           # swap, push, rotate, reverse_rotate (with stdout print)
@@ -401,7 +401,7 @@ push_swap/
     ├── deque_bonus.c          # Deque primitives (same logic, bonus compilation unit)
     ├── operations_bonus.c     # Silent operations (no stdout print)
     ├── parsing_bonus.c        # argv parsing (same logic, bonus compilation unit)
-    ├── parsing_utils_bonus.c  # ft_atoi, validation (same logic, bonus compilation unit)
+    ├── parsing_utils_bonus.c  # ft_atol, validation (same logic, bonus compilation unit)
     ├── utils_bonus.c          # init_deque, is_sorted, free_deque
     ├── get_next_line_bonus.c  # GNL for reading instructions from stdin
     └── get_next_line_utils_bonus.c  # GNL stash buffer helpers
@@ -431,7 +431,7 @@ Initial benchmarks showed roughly **~550 average for 100 numbers** and
 
 ### Checkpoint 1 — Parse Overflow Fix & Makefile Repair
 
-**The `ft_atoi` overflow bug** was the most critical issue found during review.
+**The `ft_atol` overflow bug** was the most critical issue found during review.
 The original implementation accumulated into a `long` variable with no overflow
 guard before the multiply-and-add step. On 64-bit systems where `long` is 8
 bytes, extremely large numeric strings (e.g., `18446744073709551615` or its
@@ -596,5 +596,5 @@ during development:
 
 - **Code review and bug identification**: After the initial implementation was
   complete and passing basic tests, AI was used as an additional review layer to
-  identify potential edge-case bugs (such as the `ft_atoi` overflow issue) and
+  identify potential edge-case bugs (such as the `ft_atol` overflow issue) and
   to evaluate the severity and priority of each finding.
