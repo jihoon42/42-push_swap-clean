@@ -6,7 +6,7 @@
 /*   By: jkim2 <jkim2@student.42gyeongsan.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 09:26:45 by jkim2             #+#    #+#             */
-/*   Updated: 2026/03/25 21:42:27 by jkim2            ###   ########.fr       */
+/*   Updated: 2026/03/25 23:56:15 by jkim2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ static int	read_and_exec(t_deque *a, t_deque *b)
 		if (!exec_op(a, b, line))
 		{
 			free(line);
+			line = get_next_line(0);
+			while (line)
+			{
+				free(line);
+				line = get_next_line(0);
+			}
 			return (0);
 		}
 		free(line);
