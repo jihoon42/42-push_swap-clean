@@ -64,7 +64,6 @@ long	ft_atol(const char *s)
 			sign = -1;
 		s++;
 	}
-	limit = LONG_MAX;
 	limit = get_limit(sign);
 	while (*s >= '0' && *s <= '9')
 	{
